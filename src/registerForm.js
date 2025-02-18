@@ -2,8 +2,23 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import React, { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button } from 'react-bootstrap';
+import { NotificationProvider, useNotification } from './NotificationContext';
+import ToastNotification from './ToastNotification';
 
-export default function Register() {
+//import 'materialize-css';
+//import { color } from 'react-materialize';
+
+function Register() {
+
+  const { showNotification } = useNotification();
+
+  const navigate = useNavigate();
+  const handleGoToLogin = () => {
+    navigate("/login"); // Pass state
+  };
+
   console.log("reg");
   const [formData, setFormData] = useState({
     name: "",
@@ -23,24 +38,26 @@ export default function Register() {
     e.preventDefault();
 
     try {
+      
       const response = await axios.post(
-        "http://localhost:5000/api/users/register",
+        "http://localhost:5000/api/auth/register",
         formData
       );
-      alert(response.data.message);
+      //alert(response.data.message);
+      showNotification(response.data.message, 'success')
       setFormData({ name: "", email: "", password: "", mobileNum: "" });
+      if(response.data.resultType === 'success'){
+        handleGoToLogin();
+      }
     } catch (err) {
-      alert(err.response.data.error);
+      //alert(err.response.data.error);
+      showNotification(err.data.message, 'danger')
     }
-  };
-    const navigate = useNavigate();
-    const handleGoToHome = () => {
-      navigate("/login"); // Pass state
   };
 
   return (
     <div className="App">
-      <h1>Registration Form</h1>
+      <h1 className="text-white">Registration Form</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Name:</label>
@@ -86,10 +103,19 @@ export default function Register() {
           />
         </div>
 
-        <button type="submit" onClick={handleGoToHome}>
+        <Button type="submit">
           Register
-        </button>
+        </Button>
       </form>
     </div>
   );
 }
+
+const AppWrapper = () => (
+  <NotificationProvider>
+    <Register />
+    <ToastNotification />
+  </NotificationProvider>
+);
+
+export default AppWrapper;

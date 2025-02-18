@@ -1,22 +1,33 @@
 import Register from './registerForm';
 import { Routes,Route  } from "react-router-dom";
+import Login from './loginForm';
+import Home from './home';
+import Landing from './modules/landing';
+import ToastTests from './toastTest'
+import { NotificationProvider } from './NotificationContext';
+import ToastNotification from './ToastNotification';
 
-//import ReactDOM from 'react-dom/client';
-
-// import './App.css';
- import Login from './loginForm';
-//import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 
-// function App() {
-//  return Register()
-// }
+
 function App() {
+  
   return (
     <Routes>
-      <Route path="/" element={<Register />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/landing" element={<Landing />} />
+      <Route path="/toastTest" element={<ToastTests />} />
     </Routes>
   );
 }
-export default App;
+const AppWrapper = () => (
+  <NotificationProvider>
+    <App />
+    <ToastNotification />
+  </NotificationProvider>
+);
+
+export default AppWrapper;

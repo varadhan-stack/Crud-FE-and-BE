@@ -1,3 +1,7 @@
+/* #root{
+  position:absolute;
+  inset: 0px 0px 0px 0px;
+} */
 .App {
   text-align: center;
   margin-top: 50px;
@@ -43,4 +47,39 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+.mr-0{
+  margin-right: 0px;
+}
+.mr-5{
+  margin-right: 5px;
+}
+.mr-10{
+  margin-right: 10px;
+}
+.mr-15{
+  margin-right: 15px;
+}
+.mr-20{
+  margin-right: 20px;
+}
+.mr-25{
+  margin-right: 25px;
+}
+.mr-30{
+  margin-right: 30px;
+}
+.mr-35{
+  margin-right: 35px;
+}
+.mr-40{
+  margin-right: 40px;
+}
+.p-0{
+  padding: 0;
+}
+.pl-0{
+  padding-left: 0;
+}.pr-0{
+  padding-right: 0;
 }
